@@ -43,3 +43,33 @@ export const loaderStyles = ({ width, height }) =>
       top: getPercent(20, height),
     },
   });
+
+//  Header starts here
+
+export const Headerstyles = ({ width, height }) =>
+  StyleSheet.create({
+    container: {
+      width: getPercent(100, width),
+      height: getPercent(10, height),
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#fff",
+      backgroundColor: "#0F1322",
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: getPercent(5, width),
+      justifyContent: "space-between",
+      borderBottomWidth: 0.5,
+      borderColor: "#e5e5e5",
+    },
+    titlewrapper: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    titletext: {
+      fontFamily: "SemiBold",
+      fontSize: rf(15),
+      color: "#fff",
+      marginLeft: 10,
+    },
+  });
