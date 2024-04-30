@@ -17,11 +17,11 @@ const Header = (props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.titlewrapper}>
-        <Ionicons name="chevron-back" size={rf(18)} color="#fff" />
+        <Ionicons name="chevron-back" size={rf(16)} color="#fff" />
         <Text style={styles.titletext}>{title}</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Entypo name="dots-three-vertical" size={rf(15)} color="#fff" />
+        <Entypo name="dots-three-vertical" size={rf(18)} color="#fff" />
       </TouchableOpacity>
     </View>
   );

@@ -50,7 +50,7 @@ export const Headerstyles = ({ width, height }) =>
   StyleSheet.create({
     container: {
       width: getPercent(100, width),
-      height: getPercent(10, height),
+      height: getPercent(12, height),
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: "#fff",
@@ -59,8 +59,8 @@ export const Headerstyles = ({ width, height }) =>
       alignItems: "center",
       paddingHorizontal: getPercent(5, width),
       justifyContent: "space-between",
-      borderBottomWidth: 0.5,
-      borderColor: "#e5e5e5",
+      borderBottomWidth: 1,
+      borderColor: "#28374D",
     },
     titlewrapper: {
       flexDirection: "row",
@@ -68,8 +68,9 @@ export const Headerstyles = ({ width, height }) =>
     },
     titletext: {
       fontFamily: "SemiBold",
-      fontSize: rf(15),
-      color: "#fff",
+      fontSize: 18,
+      color: "rgba(255, 255, 255, 1)",
       marginLeft: 10,
+      fontWeight: "600",
     },
   });

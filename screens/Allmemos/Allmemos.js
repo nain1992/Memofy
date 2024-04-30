@@ -1,5 +1,6 @@
 import {
   Image,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,6 +15,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { RFValue as rf } from "react-native-responsive-fontsize";
 import Notes from "./components/Notes";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { getPercent } from "../../middleware";
 
 const Allmemos = (props) => {
   let {} = props;
@@ -33,26 +35,35 @@ const Allmemos = (props) => {
         <Mainfolders />
         <View style={styles.searchbarwrapper}>
           <View style={styles.searchbarbody}>
-            <AntDesign name="search1" size={rf(15)} color="#BEC3CA" />
+            <View style={{ height: 20, width: 20 }}>
+              <Image
+                source={require("../../assets/11.png")}
+                style={{ height: "100%", width: "100%" }}
+              />
+            </View>
             <TextInput
               style={styles.input}
               placeholder="Search Any Note..."
-              placeholderTextColor={"#BEC3CA"}
+              placeholderTextColor={"#rgba(190, 195, 202, 1)"}
             />
           </View>
           <TouchableOpacity style={styles.sertiniconbody}>
             <Image
               source={require("../../assets/2.png")}
-              style={{ height: "60%", width: "60%" }}
+              style={{ height: "80%", width: "80%" }}
               resizeMode="contain"
             />
           </TouchableOpacity>
         </View>
-        <Notes />
-        <Notes syncbtn />
-        <Notes />
-        <Notes syncbtn />
-        <Notes />
+        <ScrollView>
+          <View>
+            <Notes />
+            <Notes syncbtn />
+            <Notes />
+            <Notes syncbtn />
+            <Notes />
+          </View>
+        </ScrollView>
       </KeyboardAwareScrollView>
     </View>
   );
