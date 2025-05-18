@@ -1,163 +1,230 @@
+import React, { useState } from "react";
 import {
-  Image,
-  Text,
-  TouchableOpacity,
   View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Image,
   useWindowDimensions,
 } from "react-native";
-import { connect } from "react-redux";
-import { styles as _styles } from "../../../styles/Allmemos/Notes";
 import { getPercent } from "../../../middleware";
-import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { RFValue as rf } from "react-native-responsive-fontsize";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
-import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
-const Mainfolders = (props) => {
-  let { syncbtn } = props;
-  let { width, height } = useWindowDimensions();
-  let styles = _styles({ width, height });
-
-  const [toggleplay, settToggleplay] = useState(true);
+const Notes = (props) => {
+  const { width, height } = useWindowDimensions();
+  const styles = _styles({ width, height });
+  let { SyncButton } = props;
+  const [isButtonPlayed, setIsButtonPlayed] = useState(false);
 
   return (
     <View style={styles.container}>
-      <View
-        style={[
-          styles.titleimagewrapper,
-          {
-            justifyContent: "space-between",
-          },
-        ]}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={styles.imagebody}>
+      {SyncButton ? (
+        <TouchableOpacity style={styles.syncButtonBody}>
+          <View style={styles.ButtonIconBody}>
             <Image
-              source={require("../../../assets/3.png")}
+              source={require("../../../assets/7.png")}
               style={{ height: "100%", width: "100%" }}
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.notestitle}>Our Work Notes</Text>
-        </View>
-        {syncbtn ? (
-          <TouchableOpacity style={styles.syncbtnbody}>
-            <View style={{ height: 15, width: 15, overflow: "hidden" }}>
-              <Image
-                source={require("../../../assets/7.png")}
-                style={{ height: "100%", width: "100%" }}
-                // resizeMode="cover"
-              />
-            </View>
-            <Text style={styles.synctext}>Synced</Text>
-          </TouchableOpacity>
-        ) : null}
-      </View>
-      <View style={styles.titleimagewrapper}>
-        <Text style={styles.foldertext}>Folder One</Text>
-        <View
-          style={{
-            height: 5,
-            width: 5,
-            borderRadius: 100,
-            backgroundColor: "#8C9AAE",
-            marginHorizontal: 8,
-          }}
-        ></View>
-        <Text style={styles.timetext}>1 min ago</Text>
-      </View>
-      <View>
-        <Text style={styles.descriptiontext}>
-          The voice record is playing The voice record is playing The voice
-          record is playing The voice record is playing The voice{" "}
-        </Text>
-      </View>
+          <Text style={styles.SyncedButtonText}>Synced</Text>
+        </TouchableOpacity>
+      ) : null}
 
-      {toggleplay ? (
-        <View style={styles.playbtnwrapper}>
+      <View style={styles.TitleInfoWrapper}>
+        <View style={styles.TitleThumbBody}>
+          <Image
+            source={require("../../../assets/3.png")}
+            style={{ height: "100%", width: "100%" }}
+            resizeMode="contain"
+          />
+        </View>
+        <Text style={styles.Titletext}>Our Work Notes</Text>
+      </View>
+      <View style={styles.TitleInfoWrapper}>
+        <Text style={styles.FolderText}>Folder One</Text>
+        <View style={styles.DotBody}></View>
+        <Text style={styles.TimeText}>1 min ago</Text>
+      </View>
+      <Text style={styles.DesText}>
+        The voice record is playing The voice record is playing The voice record
+        is playing The voice{"\n"}record is playing The voice
+      </Text>
+      {isButtonPlayed ? (
+        <View style={styles.playBackBody}>
           <LinearGradient
-            // Background Linear Gradient
-            colors={[
-              "rgba(251, 118, 85, 1)",
-              "rgba(220, 56, 188, 1)",
-              "rgba(138, 88, 207, 1)",
-            ]}
+            colors={["#FB7655", "#DC38BC", "#8A58CF"]}
             style={styles.background}
           />
-
           <TouchableOpacity
-            onPress={() => settToggleplay(false)}
-            style={styles.pausebtn}
+            onPress={() => setIsButtonPlayed(!isButtonPlayed)}
+            style={styles.PlayButonBody}
           >
-            {/* <MaterialCommunityIcons
-              name="pause"
-              size={20}
-              color="rgba(251, 118, 85, 1)"
-              style={{ position: "absolute", zIndex: 9999 }}
-            /> */}
             <Image
-              source={require("../../../assets/Subtract.png")}
-              style={{ height: "220%", width: "220%" }}
-              resizeMode="cover"
+              source={require("../../../assets/4.png")}
+              style={{ height: "100%", width: "100%" }}
+              resizeMode="stretch"
             />
           </TouchableOpacity>
-
-          <View style={styles.audiowavebody}>
+          <View style={styles.waveBody}>
             <Image
-              source={require("../../../assets/6.png")}
+              source={require("../../../assets/wave.png")}
               style={{ height: "100%", width: "100%" }}
-              resizeMode="contain"
+              resizeMode="stretch"
             />
           </View>
-          <Text style={styles.audiotime}>05:26</Text>
+          <Text style={styles.TimeText2}>05:26</Text>
         </View>
       ) : (
-        <View
-          style={[
-            styles.playbtnwrapper,
-            {
-              backgroundColor: "#0F1322",
-            },
-          ]}
-        >
+        <View style={styles.PauseBackBody}>
           <TouchableOpacity
-            onPress={() => settToggleplay(true)}
-            style={styles.playbtnbody}
+            onPress={() => setIsButtonPlayed(!isButtonPlayed)}
+            style={styles.PlayButonBody}
           >
-            <FontAwesome5
-              name="play"
-              size={10}
-              color="#fff"
-              style={{ position: "absolute", zIndex: 9999 }}
-            />
-
-            <LinearGradient
-              // Background Linear Gradient
-              colors={[
-                "rgba(251, 118, 85, 1)",
-                "rgba(220, 56, 188, 1)",
-                "rgba(138, 88, 207, 1)",
-              ]}
-              style={styles.btnbackground}
+            <Image
+              source={require("../../../assets/video.png")}
+              style={{ height: "100%", width: "100%" }}
+              resizeMode="stretch"
             />
           </TouchableOpacity>
-
-          <View style={styles.audiowavebody}>
+          <View style={styles.waveBody}>
             <Image
-              source={require("../../../assets/6.png")}
+              source={require("../../../assets/wave.png")}
               style={{ height: "100%", width: "100%" }}
-              resizeMode="contain"
+              resizeMode="stretch"
             />
           </View>
-          <Text style={styles.audiotime}>05:26</Text>
+          <Text style={styles.TimeText2}>05:26</Text>
         </View>
       )}
     </View>
   );
 };
 
-const mapStateToProps = (state) => ({
-  errors: state.errors.errors,
-});
-export default connect(mapStateToProps, {})(Mainfolders);
+const _styles = ({ width, height }) =>
+  StyleSheet.create({
+    container: {
+      height: 195,
+      width: getPercent(90, width),
+      padding: 15,
+      alignSelf: "center",
+      backgroundColor: "#1B223E",
+      borderRadius: 10,
+      justifyContent: "space-between",
+      marginBottom: 10,
+    },
+    syncButtonBody: {
+      height: 26,
+      width: 78,
+      backgroundColor: "#235825",
+      borderRadius: 5,
+      flexDirection: "row",
+      alignItems: "center",
+      position: "absolute",
+      justifyContent: "center",
+      right: 5,
+      top: 5,
+    },
+    SyncedButtonText: {
+      fontFamily: "SemiBold",
+      fontSize: rf(11),
+      color: "#53D258",
+    },
+    ButtonIconBody: {
+      height: 15,
+      width: 15,
+      marginRight: 5,
+    },
+    TitleInfoWrapper: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    TitleThumbBody: {
+      height: 20,
+      width: 20,
+      marginRight: 8,
+    },
+    Titletext: {
+      fontFamily: "SemiBold",
+      fontSize: rf(16),
+      color: "#F2FDFF",
+    },
+    FolderText: {
+      fontFamily: "Medium",
+      fontSize: rf(11),
+      color: "#E360C9",
+    },
+    DotBody: {
+      height: 5,
+      width: 5,
+      borderRadius: 100,
+      backgroundColor: "#A8B2C2",
+      marginHorizontal: 10,
+    },
+    TimeText: {
+      fontFamily: "Medium",
+      fontSize: rf(11),
+      color: "#A8B2C2",
+    },
+    DesText: {
+      fontFamily: "Regular",
+      fontSize: rf(11),
+      color: "#A8B2C2",
+      lineHeight: 17,
+    },
+    playBackBody: {
+      height: 45,
+      width: "100%",
+      flexDirection: "row",
+      borderRadius: 20,
+      overflow: "hidden",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    background: {
+      height: "100%",
+      width: "100%",
+      position: "absolute",
+    },
+    PlayButonBody: {
+      height: 28,
+      width: 28,
+      shadowColor: "#000",
+      borderRadius: 100,
+      marginLeft: 10,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+    },
+    waveBody: {
+      height: 23,
+      width: 190,
+      marginHorizontal: 8,
+    },
+    TimeText2: {
+      fontFamily: "Regular",
+      fontSize: rf(9),
+      color: "#EAECEE",
+      marginRight: 10,
+    },
+    PauseBackBody: {
+      height: 45,
+      width: "100%",
+      flexDirection: "row",
+      borderRadius: 20,
+      overflow: "hidden",
+      alignItems: "center",
+      justifyContent: "space-between",
+      backgroundColor: "#0F1322",
+    },
+  });
+
+export default Notes;

@@ -1,75 +1,126 @@
+import React from "react";
 import {
-  Image,
-  ScrollView,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  ScrollView,
+  StyleSheet,
+  Image,
   useWindowDimensions,
 } from "react-native";
-import { connect } from "react-redux";
-import { styles as _styles } from "../../styles/Allmemos/main";
-import Header from "../../globalComponents/Header";
-import Mainfolders from "./components/Mainfolders";
-import { AntDesign } from "@expo/vector-icons";
-import { RFValue as rf } from "react-native-responsive-fontsize";
-import Notes from "./components/Notes";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { getPercent } from "../../middleware";
+import { RFValue as rf } from "react-native-responsive-fontsize";
+import { LinearGradient } from "expo-linear-gradient";
+import Header from "./components/Header";
+import Memos from "./components/Memos";
+import Notes from "./components/Notes";
 
 const Allmemos = (props) => {
-  let {} = props;
-  let { width, height } = useWindowDimensions();
-  let styles = _styles({ width, height });
+  const { width, height } = useWindowDimensions();
+  const styles = _styles({ width, height });
 
   return (
     <View style={styles.container}>
-      <Header title={"All Memos"} navigation={props?.navigation} />
-      <KeyboardAwareScrollView>
-        <View style={styles.lablewrapper}>
-          <Text style={styles.title}>Your Folders</Text>
-          <TouchableOpacity>
-            <Text style={styles.seealltext}>See All</Text>
-          </TouchableOpacity>
-        </View>
-        <Mainfolders />
-        <View style={styles.searchbarwrapper}>
-          <View style={styles.searchbarbody}>
-            <View style={{ height: 20, width: 20 }}>
-              <Image
-                source={require("../../assets/11.png")}
-                style={{ height: "100%", width: "100%" }}
-              />
-            </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Search Any Note..."
-              placeholderTextColor={"#rgba(190, 195, 202, 1)"}
-            />
-          </View>
-          <TouchableOpacity style={styles.sertiniconbody}>
+      <Header title={"All Memos"} />
+      <View style={styles.YourFoldersTextBody}>
+        <Text style={styles.FoldersText}>Your Folders</Text>
+        <Text style={styles.SeeAllText}>See All</Text>
+      </View>
+      <Memos />
+      <View style={styles.SearchBarWrapper}>
+        <View style={styles.SearchBarBody}>
+          <View style={styles.SearchIconBody}>
             <Image
-              source={require("../../assets/2.png")}
-              style={{ height: "80%", width: "80%" }}
+              source={require("../../assets/11.png")}
+              style={{ height: "100%", width: "100%" }}
               resizeMode="contain"
             />
-          </TouchableOpacity>
-        </View>
-        <ScrollView>
-          <View>
-            <Notes />
-            <Notes syncbtn />
-            <Notes />
-            <Notes syncbtn />
-            <Notes />
           </View>
-        </ScrollView>
-      </KeyboardAwareScrollView>
+          <TextInput
+            placeholder="Search Any Note..."
+            placeholderTextColor={"#BEC3CA"}
+            style={styles.Input}
+          />
+        </View>
+        <TouchableOpacity style={styles.filterIconBody}>
+          <Image
+            source={require("../../assets/2.png")}
+            style={{ height: "100%", width: "100%" }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+        <View style={{ marginBottom: getPercent(5, height) }}>
+          <Notes SyncButton />
+          <Notes />
+          <Notes />
+          <Notes SyncButton />
+          <Notes />
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
-const mapStateToProps = (state) => ({
-  errors: state.errors.errors,
-});
-export default connect(mapStateToProps, {})(Allmemos);
+const _styles = ({ width, height }) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#070B1B",
+    },
+    YourFoldersTextBody: {
+      height: getPercent(6, height),
+      width: getPercent(100, width),
+      paddingHorizontal: getPercent(5, width),
+      flexDirection: "row",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+    },
+    FoldersText: {
+      fontFamily: "SemiBold",
+      fontSize: rf(13),
+      color: "#fff",
+    },
+    SeeAllText: {
+      fontFamily: "SemiBold",
+      fontSize: rf(11),
+      color: "#FB7655",
+    },
+    SearchBarWrapper: {
+      height: getPercent(12, height),
+      width: getPercent(100, width),
+      paddingHorizontal: getPercent(5, width),
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    SearchBarBody: {
+      height: 40,
+      width: 285,
+      backgroundColor: "#1B223E",
+      borderRadius: 10,
+      flexDirection: "row",
+      paddingLeft: 10,
+      alignItems: "center",
+    },
+    filterIconBody: {
+      height: 30,
+      width: 30,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    SearchIconBody: {
+      height: 20,
+      width: 20,
+    },
+    Input: {
+      fontFamily: "Medium",
+      fontSize: rf(13),
+      color: "#fff",
+      marginLeft: 7,
+    },
+  });
+
+export default Allmemos;
